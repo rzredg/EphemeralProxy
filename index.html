@@ -1,1 +1,80 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Proxy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .url-form {
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .quick-exit {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #f44336;
+        }
+        .info {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 5px solid #2196F3;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Proxy</h1>
+    <div class="info">
+        <p>This is a temporary anonymous web proxy. Use it to access websites that may be restricted in your location.</p>
+    </div>
+    <div class="url-form">
+        <form id="proxyForm">
+            <label for="url">Enter website URL:</label><br>
+            <select id="protocol">
+                <option value="https://">HTTPS</option>
+                <option value="http://">HTTP</option>
+            </select>
+            <input type="text" id="url" name="url" placeholder="example.com" required>
+            <button type="submit">Browse</button>
+        </form>
+    </div>
+    <button class="quick-exit" onclick="window.location='https://weather.com'">✕ Quick Exit</button>
+    
+    <script>
+        document.getElementById('proxyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            var protocol = document.getElementById('protocol').value;
+            var urlInput = document.getElementById('url').value;
+            
+            // Remove protocol if user accidentally included it
+            urlInput = urlInput.replace(/^(https?:\/\/)/i, '');
+            
+            var fullUrl = protocol + urlInput;
+            window.location.href = '/proxy/' + fullUrl;
+        });
+    </script>
+</body>
+</html>
