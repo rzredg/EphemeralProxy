@@ -3,7 +3,7 @@ EphemeralProxy is a privacy-preserving, self-destructing web proxy designed to e
 
 Instead of optimizing for uptime or durability, EphemeralProxy is built around ephemerality as a first-class design constraint: minimal retained state, fixed lifetime, and intentional teardown.
 
-Motivation
+# Motivation
 
 Most networking and proxy systems assume persistence: long-running services, durable logs, and infrastructure designed to survive failures indefinitely. In some contexts — emergencies, sensitive access, or experimental systems — longevity increases risk.
 
@@ -17,7 +17,7 @@ How should infrastructure behave when teardown is guaranteed?
 
 EphemeralProxy is an exploration of these questions using simple, auditable tools: a Linux VM, nginx, Python, and the command line.
 
-High-Level Architecture
+# High-Level Architecture
 Client
   |
   | HTTP(S) request
@@ -41,7 +41,7 @@ Python orchestrates lifecycle, timing, and teardown
 
 The Ubuntu VM itself is treated as disposable infrastructure
 
-Design Principles
+# Design Principles
 1. Ephemerality First
 
 The proxy is intended to exist for a fixed, short lifetime. After expiration:
@@ -72,7 +72,7 @@ Short-lived connections
 
 No persistent application-level storage
 
-Proxy Implementation (nginx)
+# Proxy Implementation (nginx)
 
 nginx is used as a lightweight, stateless HTTP proxy responsible only for forwarding traffic. It is configured to avoid logging and to minimize identifying metadata.
 
@@ -124,7 +124,7 @@ Designed for cloud VM deployment
 
 Clear separation between proxy logic and lifecycle management
 
-What’s Incomplete (By Design)
+# What’s Incomplete (By Design)
 
 This project is intentionally exploratory and unfinished. Planned work includes:
 
@@ -176,7 +176,7 @@ Replace Tor or mature anonymity networks
 
 Guarantee cryptographic anonymity
 
-Technologies Used
+# Technologies Used
 
 nginx — stateless HTTP proxy (data plane)
 
@@ -190,17 +190,11 @@ Git — version control
 
 Shell scripting — teardown and lifecycle management (planned)
 
-Why This Project Matters
+# Why This Project Matters
 
 EphemeralProxy reframes infrastructure as something temporary and intentionally short-lived. In contexts where time, safety, or privacy dominate, systems should degrade gracefully, retain minimal state, and disappear cleanly.
 
 This project represents an attempt to reason from first principles about software lifecycle, security, and responsibility under constraint.
-
-Future Work
-
-TTL-based automated teardown
-
-Secure memory and disk cleanup
 
 Async orchestration logic
 
